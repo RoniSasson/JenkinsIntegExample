@@ -15,7 +15,7 @@ pipeline {
         stage('Run Vision analysis') {
             agent {
                 docker {
-                    image '${env.VISION_CLI_REGISTRY}/vision_analysis:${env.VISION_ANALYSIS_TAG}'
+                    image "${env.VISION_CLI_REGISTRY}/vision_analysis:${env.VISION_ANALYSIS_TAG}"
                     reuseNode true
                 }
             }
