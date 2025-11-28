@@ -30,7 +30,7 @@ pipeline {
                             # These parameters for this run are for this example only. Set your own values for your own run.
                             export VISION_ARTIFACT_ID=2901
                             export VISION_MAX_THREAT_LEVEL="Very High"
-                            export VISION_MAX_HIGHLIGHTED_ISSUES=4
+                            export VISION_MAX_HIGHLIGHTED_ISSUES=13
                             export VISION_MAX_HIGHLIGHTED_CVES=11
                             export VISION_MAX_HIGHLIGHTED_EXPOSURES=2
                             export VISION_MAX_MALICIOUS_FILES=10
@@ -41,7 +41,8 @@ pipeline {
                             echo "Upload & Analyze------------------"
                             vdoo_analysis analyze --token ${VISION_TOKEN} --base_url ${VISION_BASE_URL} \\
                                 --artifact-id ${VISION_ARTIFACT_ID} --image-path jenkins_newly_built_image.bin \\
-                                -n jenkins_ci_version --verbose --output-uuid new_uuid.txt  
+                                -n jenkins_ci_version --verbose --output-uuid new_image_uuid.txt  
+                            
 
                             #echo "New image id:"
                             #cat new_image_uuid.txt
