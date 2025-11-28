@@ -40,7 +40,7 @@ pipeline {
                             # Vision analysis: Upload, Analyze and wait for completion. Get final status and results.
                             echo "Upload & Analyze------------------"
                             vdoo_analysis analyze --token ${VISION_TOKEN} --base_url ${VISION_BASE_URL} \\
-                                --artifact-id ${VISION_ARTIFACT_ID} --verbose --image-path jenkins_newly_built_image.bin \\
+                                --artifact-id ${VISION_ARTIFACT_ID} --image-path jenkins_newly_built_image.bin \\
                                 -n jenkins_ci_version | jq -r .image_uuid > new_image_uuid.txt
 
                             #echo "New image id:"
