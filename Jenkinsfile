@@ -44,16 +44,13 @@ pipeline {
                                 -n jenkins_ci_version --verbose --output-uuid new_image_uuid.txt  
                             
 
-                            #echo "New image id:"
-                            #cat new_image_uuid.txt
-
                             NEW_UUID=$(cat ./new_image_uuid.txt)
                             echo "New image UUID:"
                             echo ${NEW_UUID}
                             vdoo_analysis images get_status --token ${VISION_TOKEN} --image-uuid ${NEW_UUID} --base_url ${VISION_BASE_URL}
 
                             # Get the analysis results
-                            vdoo_analysis images get_results --token ${VISION_TOKEN} --base_url ${VISION_BASE_URL} --image-uuid `cat new_image_uuid.txt` \\
+                            vdoo_analysis images get_results --token ${VISION_TOKEN} --base_url ${VISION_BASE_URL} --image-uuid ${NEW_UUID} \\
                                 --scope all > vision_analysis_report.json
 
                             # Parse the analysis results
