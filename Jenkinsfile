@@ -1,13 +1,17 @@
 pipeline {
     agent any
 
+    environment {
+        IMAGE_FILENAME = 'jenkins_newly_built_image.bin'
+    }
+
     stages {
         stage('Build') {
             steps {
                 script {
                     // This is a placeholder for your actual build process
-                    sh 'cp full_filesystem.bin jenkins_newly_built_image.bin'
-                    stash(name: 'image_to_analyze', includes: 'jenkins_newly_built_image.bin')
+                    sh "cp full_filesystem.bin ${env.IMAGE_FILENAME}"
+                    stash(name: 'image_to_analyze', includes: "${env.IMAGE_FILENAME}")
                 }
             }
         }
@@ -40,7 +44,7 @@ pipeline {
                             # Vision analysis: Upload, Analyze and wait for completion. Get final status and results.
                             echo "Upload & Analyze------------------"
                             vdoo_analysis analyze --token ${VISION_TOKEN} --base_url ${VISION_BASE_URL} \\
-                                --artifact-id ${VISION_ARTIFACT_ID} --image-path jenkins_newly_built_image.bin \\
+                                --artifact-id ${VISION_ARTIFACT_ID} --image-path ${IMAGE_FILENAME} \\
                                 -n jenkins_ci_version --verbose --output-uuid new_image_uuid.txt  
                             
 
