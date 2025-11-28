@@ -6,8 +6,8 @@ pipeline {
             steps {
                 script {
                     // This is a placeholder for your actual build process
-                    sh 'cp full_filesystem.bin full_filesystem_new_build.bin'
-                    stash(name: 'image_to_analyze', includes: 'full_filesystem_new_build.bin')
+                    sh 'cp full_filesystem.bin jenkins_newly_built_image.bin'
+                    stash(name: 'image_to_analyze', includes: 'jenkins_newly_built_image.bin')
                 }
             }
         }
@@ -60,27 +60,27 @@ pipeline {
                             max_threat_level_val=`case ${VISION_MAX_THREAT_LEVEL} in "None") echo "20";; "Very High") echo "10";; "High") echo "8";; "Medium") echo "6";; "Low") echo "4";; "Very Low") echo "2";; esac`
 
                             # Check the analysis results against the thresholds
-                            if [[ ${report_threat_level_val} -gt ${max_threat_level_val} ]] ; then
+                            if [ ${report_threat_level_val} -gt ${max_threat_level_val} ] ; then
                                 echo "Analysis failed due to threat level too high - ${report_threat_level} vs. ${VISION_MAX_THREAT_LEVEL}"
                                 exit 1
                             fi
 
-                            if [[ $((report_highlighted_total)) -gt $((VISION_MAX_HIGHLIGHTED_ISSUES)) ]] ; then
+                            if [ $((report_highlighted_total)) -gt $((VISION_MAX_HIGHLIGHTED_ISSUES)) ] ; then
                                 echo "Analysis failed due to too many highlighted issues (${report_highlighted_total} > ${VISION_MAX_HIGHLIGHTED_ISSUES})"
                                 exit 1
                             fi
 
-                            if [[ ${report_cves} -gt ${VISION_MAX_HIGHLIGHTED_CVES} ]] ; then
+                            if [ ${report_cves} -gt ${VISION_MAX_HIGHLIGHTED_CVES} ] ; then
                                 echo "Analysis failed due to too many CVEs (${report_cves} > ${VISION_MAX_HIGHLIGHTED_CVES})"
                                 exit 1
                             fi
 
-                            if [[ ${report_exposures} -gt ${VISION_MAX_HIGHLIGHTED_EXPOSURES} ]] ; then
+                            if [ ${report_exposures} -gt ${VISION_MAX_HIGHLIGHTED_EXPOSURES} ] ; then
                                 echo "Analysis failed due to too many exposures (${report_exposures} > ${VISION_MAX_HIGHLIGHTED_EXPOSURES})"
                                 exit 1
                             fi
 
-                            if [[ ${report_malicious_files} -gt ${VISION_MAX_MALICIOUS_FILES} ]] ; then
+                            if [ ${report_malicious_files} -gt ${VISION_MAX_MALICIOUS_FILES} ] ; then
                                 echo "Analysis failed due to too many malicious_files (${report_malicious_files} > ${VISION_MAX_MALICIOUS_FILES})"
                                 exit 1
                             fi
