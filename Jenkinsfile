@@ -33,7 +33,7 @@ pipeline {
                         sh '''#!/bin/bash
                             # These parameters for this run are for this example only. Set your own values for your own run.
                             export VISION_ARTIFACT_ID=2901
-                            export VISION_MAX_THREAT_LEVEL="Very High"
+                            export VISION_MAX_THREAT_LEVEL="Low"
                             export VISION_MAX_HIGHLIGHTED_ISSUES=13
                             export VISION_MAX_HIGHLIGHTED_CVES=11
                             export VISION_MAX_HIGHLIGHTED_EXPOSURES=2
